@@ -4,51 +4,46 @@
 
 ### Evaluate the engineer, not just the code.
 
-InterviewOS is an **AI-native interview intelligence platform**. It evaluates how candidates think, verify, communicate, and supervise AI while building software.
+InterviewOS is an AI-native interview intelligence platform that reviews a candidate's code, AI transcript, tests, command trace, and final explanation to answer one question:
 
-It is not a cheating detector. It is a thinking detector for the AI-assisted engineering era.
+**Can this person think, verify, communicate, and ship with AI?**
 
 <br />
 
-<strong>REST API</strong> · <strong>CLI</strong> · <strong>MCP Server</strong> · <strong>Hackathon Demo UI</strong>
+<strong>Demo UI</strong> · <strong>REST API</strong> · <strong>CLI</strong> · <strong>MCP Server</strong>
 
 </div>
 
 ---
 
-## Working Demo
+## Live Demo Screens
 
 ### 1. Open Screen
 
-The first screen frames the product as an integration-ready interview harness, not just a dashboard.
+InterviewOS starts as an interview harness: upload an AI transcript or use the bundled evidence packet. The product is positioned as infrastructure companies can plug into LeetCode, HackerRank, CodeSignal, internal take-homes, or AI IDE workflows.
 
-![InterviewOS open screen](docs/readme-open-screen.svg)
+<img src="docs/notebooklm-assets/01-interviewos-open-screen.jpg" alt="InterviewOS open screen" width="100%">
 
-### 2. After “Use Demo Packet”
+### 2. After "Use Demo Packet"
 
-The backend runs specialist agents in parallel and reveals evidence-backed candidate insights.
+The backend runs specialist evaluator agents in parallel, then synthesizes evidence-backed candidate insights. The key artifact is not a generic score; it is a sharp hiring readout grounded in what the candidate actually did.
 
-![InterviewOS demo analysis](docs/readme-demo-analysis.svg)
+<img src="docs/notebooklm-assets/02-interviewos-demo-analysis.jpg" alt="InterviewOS analyzed demo packet screen" width="100%">
 
 ---
 
-## What InterviewOS Does
+## What It Evaluates
 
-Modern candidates use Codex, Claude, Copilot, Cursor, Antigravity, and other AI-enabled development tools. The differentiator is no longer only whether someone can type code from memory.
+Modern candidates have Codex, Claude, Copilot, Cursor, Antigravity, and other AI-enabled development tools. InterviewOS assumes AI is allowed and evaluates the higher-order signal:
 
-The real signal is whether they can:
-
-- frame ambiguous requirements
-- decompose work clearly
-- delegate to AI with judgment
-- detect hallucinated or unsafe AI output
-- verify generated code instead of trusting it blindly
-- communicate tradeoffs and residual risk
-- organize a codebase cleanly
-- debug methodically
-- understand production, security, and reliability concerns
-
-InterviewOS turns that process into structured hiring signal.
+- problem framing
+- decomposition
+- agent workflow maturity
+- technical depth
+- verification discipline
+- code review judgment
+- communication clarity
+- delivery risk
 
 Example insight:
 
@@ -56,61 +51,39 @@ Example insight:
 
 ---
 
-## Product Surfaces
+## Agentic Backend
 
-InterviewOS is designed to plug into hiring workflows, not replace every coding environment.
-
-| Surface | Use Case | Entry Point |
-| --- | --- | --- |
-| **REST API** | HackerRank, LeetCode, CodeSignal, internal ATS workflows | `POST /api/evaluations` |
-| **CLI** | Take-homes, local interviews, repo/test-log collection | `interviewos analyze --evidence evidence.json` |
-| **MCP Server** | AI IDEs, internal copilots, interview agents | `interviewos_evaluate` |
-| **Demo UI** | Hackathon judging and interviewer review | `http://localhost:5173` |
-
----
-
-## Agentic Evaluation Workflow
-
-InterviewOS ingests an evidence packet:
+An evidence packet can include:
 
 - AI transcript
 - Git diff
 - test log
 - command trace
-- final candidate explanation
+- final explanation
 - role and interview mode
 
-Then it runs specialist evaluators concurrently:
+InterviewOS runs specialist evaluators concurrently:
 
-- **Conversation History Scanner**
-- **Agent Workflow Auditor**
-- **Code Reviewer**
-- **Technical Depth Assessor**
-- **Verification Auditor**
-- **Communication Evaluator**
-- **Delivery Risk Assessor**
+- Conversation History Scanner
+- Agent Workflow Auditor
+- Code Reviewer
+- Technical Depth Assessor
+- Verification Auditor
+- Communication Evaluator
+- Delivery Risk Assessor
 
-The synthesis layer returns:
-
-- critical insights
-- structured signals
-- scorecard
-- evidence trail
-- transcript excerpts
-- specialist reports
-- recommendation
+The summarizer returns critical insights, scorecard signals, evidence trail, transcript excerpts, specialist reports, and a recommendation.
 
 ---
 
-## Demo Output
+## Available As
 
-For the bundled demo packet, InterviewOS surfaces:
-
-- **Code risk:** fallback parsing behavior is under-specified
-- **Late proof:** candidate validated after the implementation was effectively done
-- **Agent workflow gap:** candidate used AI as a generator, not as a managed engineering workflow
-- **Communication:** candidate explained tradeoffs and residual risk clearly
-- **Delivery risk:** medium
+| Surface | For | Entry Point |
+| --- | --- | --- |
+| Demo UI | Hackathon judging and interviewer review | `http://localhost:5173` |
+| REST API | Hiring platforms and ATS workflows | `POST /api/evaluations` |
+| CLI | Take-homes and local repo analysis | `interviewos analyze --evidence evidence.json` |
+| MCP Server | AI IDEs, internal copilots, interview agents | `interviewos_evaluate` |
 
 ---
 
@@ -120,7 +93,7 @@ For the bundled demo packet, InterviewOS surfaces:
 npm start
 ```
 
-Then open:
+Open:
 
 ```text
 http://localhost:5173
@@ -140,7 +113,7 @@ npm run mcp
 
 ---
 
-## API Example
+## API Shape
 
 ```http
 POST /api/evaluations
@@ -166,15 +139,7 @@ Content-Type: application/json
 }
 ```
 
-Structured response includes:
-
-- `critical_insights`
-- `signals`
-- `scorecard`
-- `evidence_trail`
-- `transcript_excerpts`
-- `specialist_reports`
-- `recommendation`
+Structured response includes `critical_insights`, `signals`, `scorecard`, `evidence_trail`, `transcript_excerpts`, `specialist_reports`, and `recommendation`.
 
 ---
 
@@ -184,6 +149,4 @@ The future of technical interviewing is not banning AI.
 
 The future is evaluating how engineers think with AI.
 
-InterviewOS gives companies the missing layer: a way to understand not only what candidates shipped, but how they reasoned, delegated, verified, communicated, and handled risk along the way.
-
-That is the new hiring signal.
+InterviewOS gives hiring teams the missing layer: process intelligence for AI-assisted engineering.
