@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InterviewOS | AI Interview Harness</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient-grid" aria-hidden="true"></div>
+
+    <main class="page">
+      <nav class="nav">
+        <a class="brand" href="#top" aria-label="InterviewOS home">
+          <span>IO</span>
+          InterviewOS
+        </a>
+        <div class="nav-actions">
+          <a class="text-link" href="#integration">API · CLI · MCP</a>
+          <button class="primary-button" id="uploadTopButton">Upload transcript</button>
+        </div>
+      </nav>
+      <input id="transcriptInput" type="file" accept=".txt,.md,.json,.jsonl,.log" hidden />
+
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <p class="eyebrow">AI-native interview intelligence</p>
+          <h1>See whether candidates can actually think with AI.</h1>
+          <p class="hero-text">
+            InterviewOS reviews the code, but the real product is the process readout:
+            how the candidate framed ambiguity, delegated to AI, verified outputs, and recovered from weak suggestions.
+          </p>
+          <div class="hero-actions">
+            <button class="primary-button large" id="uploadHeroButton">Upload AI transcript</button>
+            <button class="secondary-button" id="demoButton">Use demo packet</button>
+          </div>
+          <div class="channel-strip" aria-label="Distribution channels">
+            <article>
+              <span>REST API</span>
+              <strong>POST /api/evaluations</strong>
+              <small>Structured JSON for hiring platforms.</small>
+            </article>
+            <article>
+              <span>CLI</span>
+              <strong>interviewos analyze</strong>
+              <small>Evidence collector for take-homes.</small>
+            </article>
+            <article>
+              <span>MCP</span>
+              <strong>interviewos_evaluate</strong>
+              <small>Callable from AI agents and IDEs.</small>
+            </article>
+          </div>
+        </div>
+
+        <aside class="intake-card" aria-label="Evidence packet">
+          <div class="card-header">
+            <p class="eyebrow">Evidence packet</p>
+            <span class="status-pill" id="packetStatus">Waiting for transcript</span>
+          </div>
+          <div class="drop-zone" id="dropZone">
+            <span class="upload-glyph"></span>
+            <strong>Upload AI chat transcript</strong>
+            <p>Then attach repo diff, test log, terminal trace, and final explanation.</p>
+          </div>
+          <div class="evidence-list">
+            <span>AI transcript</span>
+            <span>Git diff</span>
+            <span>Test log</span>
+            <span>Command trace</span>
+          </div>
+          <div class="setup-grid">
+            <label>
+              Role
+              <select id="roleSelect">
+                <option>SWE Platform</option>
+                <option>MLE Systems</option>
+                <option>Data Science</option>
+                <option>DevOps Reliability</option>
+              </select>
+            </label>
+            <label>
+              Interview mode
+              <select id="modeSelect">
+                <option>AI-assisted build</option>
+                <option>Debugging investigation</option>
+                <option>AI code review</option>
+                <option>Agent orchestration</option>
+              </select>
+            </label>
+          </div>
+        </aside>
+      </section>
+
+      <section class="locked-state panel" id="lockedState">
+        <div>
+          <p class="eyebrow">Hidden until transcript upload</p>
+          <h2>Critical insights should feel earned.</h2>
+          <p>
+            The evaluator stays quiet until it has candidate evidence. Upload a transcript or run the demo packet to trigger the backend specialist agents.
+          </p>
+        </div>
+        <button class="primary-button" id="unlockButton">Run demo agent analysis</button>
+      </section>
+
+      <section class="analysis is-hidden" id="analysis">
+        <div class="analysis-top">
+          <div>
+            <p class="eyebrow">Candidate readout</p>
+            <h2 id="candidateTitle">Maya Chen · Realtime parser</h2>
+          </div>
+          <div class="candidate-tabs" id="candidateTabs" aria-label="Select candidate"></div>
+        </div>
+
+        <section class="panel agent-run-panel">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">Agentic backend</p>
+              <h2>Specialists ran in parallel</h2>
+            </div>
+            <span class="confidence" id="runMeta">Awaiting run</span>
+          </div>
+          <div class="agent-run-grid" id="agentRunGrid"></div>
+        </section>
+
+        <section class="critical-panel panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Critical insights</p>
+              <h2>What the transcript reveals</h2>
+            </div>
+            <span class="confidence" id="confidenceBadge">92% evidence confidence</span>
+          </div>
+          <div class="insight-grid" id="insightGrid"></div>
+        </section>
+
+        <section class="signal-row" aria-label="Interview signals">
+          <article class="signal-card">
+            <span>Agent workflow maturity</span>
+            <strong id="agentSignal">Needs structure</strong>
+            <small id="agentSignalCopy">No reviewer agent or acceptance criteria before delegation.</small>
+          </article>
+          <article class="signal-card">
+            <span>Evidence timing</span>
+            <strong id="evidenceSignal">Late</strong>
+            <small id="evidenceSignalCopy">Tests came after implementation was already integrated.</small>
+          </article>
+          <article class="signal-card">
+            <span>Communication</span>
+            <strong id="commSignal">Strong</strong>
+            <small id="commSignalCopy">Explained tradeoffs and residual risk clearly.</small>
+          </article>
+          <article class="signal-card">
+            <span>Delivery risk</span>
+            <strong id="riskSignal">Medium</strong>
+            <small id="riskSignalCopy">Malformed nested payloads remain under-tested.</small>
+          </article>
+        </section>
+
+        <section class="workbench">
+          <div class="panel timeline-panel">
+            <div class="section-heading compact">
+              <div>
+                <p class="eyebrow">Evidence trail</p>
+                <h2>Key moments, not every click</h2>
+              </div>
+            </div>
+            <div class="timeline" id="timeline"></div>
+          </div>
+
+          <div class="panel transcript-panel">
+            <div class="section-heading compact">
+              <div>
+                <p class="eyebrow">Transcript excerpts</p>
+                <h2>Signals worth discussing</h2>
+              </div>
+            </div>
+            <div class="quote-stack" id="quoteStack"></div>
+          </div>
+
+          <div class="panel score-panel">
+            <div class="section-heading compact">
+              <div>
+                <p class="eyebrow">Rubric</p>
+                <h2>Interview-native dimensions</h2>
+              </div>
+            </div>
+            <div class="score-list" id="scoreList"></div>
+          </div>
+        </section>
+
+        <section class="panel integration-panel" id="integration">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Distribution model</p>
+              <h2>One evaluator, three integration surfaces.</h2>
+            </div>
+          </div>
+          <div class="integration-grid">
+            <article>
+              <span class="route-label">01</span>
+              <h3>REST API</h3>
+              <p><strong>POST /api/evaluations</strong> returns critical insights, signals, scorecard, evidence trail, transcript excerpts, and specialist reports.</p>
+            </article>
+            <article>
+              <span class="route-label">02</span>
+              <h3>CLI adapter</h3>
+              <p><strong>interviewos analyze</strong> packages repo state, command logs, test logs, and AI transcripts into a portable evaluation.</p>
+            </article>
+            <article>
+              <span class="route-label">03</span>
+              <h3>MCP server</h3>
+              <p><strong>interviewos_evaluate</strong> exposes the same backend as a tool for AI interview agents, IDEs, and internal copilots.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel cohort-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Cohort readout</p>
+              <h2>Same challenge, different AI habits</h2>
+            </div>
+          </div>
+          <div class="cohort-table" id="cohortTable"></div>
+        </section>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite">Transcript uploaded</div>
+    <script src="app.js"></script>
+  </body>
+</html>

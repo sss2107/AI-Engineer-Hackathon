@@ -4,3 +4,11 @@
 
 # LangGraph
 .langgraph_api/
+
+.DS_Store
+node_modules/
+.env
+.env.*
+coverage/
+dist/
+npm-debug.log*

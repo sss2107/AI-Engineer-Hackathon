@@ -1,0 +1,45 @@
+{
+  "candidate": {
+    "id": "maya",
+    "name": "Maya Chen",
+    "title": "Realtime parser"
+  },
+  "role": "SWE Platform",
+  "mode": "AI-assisted build",
+  "evidence": {
+    "aiTranscript": [
+      {
+        "role": "Candidate",
+        "content": "Before I code, I want to clarify the expected behavior. Should malformed payloads fail closed or should the parser attempt partial recovery?"
+      },
+      {
+        "role": "Assistant",
+        "content": "You can use stream-safe-parser for incremental JSON parsing and add a fallback for unknown fields."
+      },
+      {
+        "role": "Candidate",
+        "content": "I will wire the parser first, then come back and add the weird cases once it runs."
+      },
+      {
+        "role": "Candidate",
+        "content": "That package does not seem real. I checked docs and I am going to avoid the dependency and keep the parser local."
+      },
+      {
+        "role": "Candidate",
+        "content": "I did not set up separate planner, reviewer, or tester agents here. I mostly used one implementation prompt and reviewed the diff myself."
+      },
+      {
+        "role": "Candidate",
+        "content": "Residual risk: malformed nested payloads are not covered yet. Happy path, empty stream, and retry behavior pass."
+      }
+    ],
+    "gitDiff": "diff --git a/src/parser.ts b/src/parser.ts\n+export function parseEvent(payload) {\n+  const parsed = JSON.parse(payload);\n+  if (parsed.unknownFields) return fallbackParse(parsed);\n+  return validateEvent(parsed);\n+}\n+\n+function fallbackParse(parsed) {\n+  return { type: parsed.type || 'unknown', data: parsed.data };\n+}\n",
+    "testLog": "PASS parser.test.ts happy path\nPASS parser.test.ts empty stream\nPASS parser.test.ts retry behavior\nTODO malformed nested payload coverage",
+    "commandTrace": [
+      "npm install",
+      "npm test -- parser.test.ts",
+      "git diff -- src/parser.ts"
+    ],
+    "finalExplanation": "I chose a local parser to avoid a questionable dependency. The tradeoff is that malformed nested payload handling still needs a regression test before production use."
+  }
+}

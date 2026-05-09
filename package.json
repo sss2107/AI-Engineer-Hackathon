@@ -1,0 +1,14 @@
+{
+  "name": "interviewos",
+  "version": "0.1.0",
+  "description": "AI-native interview intelligence harness with async specialist evaluators.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "mcp": "node mcp/interviewos-mcp.mjs",
+    "analyze:demo": "node bin/interviewos.mjs analyze --evidence data/demo-evidence.json"
+  },
+  "bin": {
+    "interviewos": "./bin/interviewos.mjs"
+  }
+}

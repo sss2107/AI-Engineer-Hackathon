@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://interviewos.local/schemas/evaluation-response.json",
+  "title": "InterviewOS Evaluation Response",
+  "type": "object",
+  "required": [
+    "api_version",
+    "object",
+    "evaluation",
+    "candidate_readout",
+    "critical_insights",
+    "signals",
+    "scorecard",
+    "evidence_trail",
+    "transcript_excerpts",
+    "specialist_reports",
+    "integrations"
+  ],
+  "properties": {
+    "api_version": {
+      "type": "string"
+    },
+    "object": {
+      "const": "interviewos.evaluation"
+    },
+    "evaluation": {
+      "type": "object",
+      "required": [
+        "id",
+        "status",
+        "generated_at",
+        "duration_ms",
+        "role",
+        "mode",
+        "recommendation",
+        "confidence",
+        "input_summary"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "complete"
+          ]
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "duration_ms": {
+          "type": "number"
+        },
+        "role": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "string"
+        },
+        "recommendation": {
+          "type": "string"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "input_summary": {
+          "type": "object"
+        }
+      }
+    },
+    "candidate_readout": {
+      "type": "object"
+    },
+    "critical_insights": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "title",
+          "summary",
+          "evidence",
+          "tone"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "tone": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "signals": {
+      "type": "object",
+      "required": [
+        "agent_workflow_maturity",
+        "evidence_timing",
+        "communication",
+        "delivery_risk"
+      ]
+    },
+    "scorecard": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "dimension",
+          "score",
+          "scale"
+        ],
+        "properties": {
+          "dimension": {
+            "type": "string"
+          },
+          "score": {
+            "type": "number"
+          },
+          "scale": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "evidence_trail": {
+      "type": "array"
+    },
+    "transcript_excerpts": {
+      "type": "array"
+    },
+    "specialist_reports": {
+      "type": "array"
+    },
+    "integrations": {
+      "type": "object",
+      "required": [
+        "rest_api",
+        "cli",
+        "mcp"
+      ]
+    }
+  }
+}

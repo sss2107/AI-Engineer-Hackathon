@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "interviewos": {
+      "command": "node",
+      "args": [
+        "/absolute/path/to/AI-engineer-hackathon/mcp/interviewos-mcp.mjs"
+      ]
+    }
+  }
+}
